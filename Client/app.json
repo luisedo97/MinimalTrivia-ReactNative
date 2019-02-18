@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Trivia Game",
-    "slug": "triviagame",
+    "name": "Trivia Tower",
+    "slug": "triviatower",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [

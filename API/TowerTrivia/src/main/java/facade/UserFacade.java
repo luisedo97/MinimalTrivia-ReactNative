@@ -11,9 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import model.MangaModel;
 import model.ResponseModel;
-import model.SubscribeModel;
 import util.*;
 
 public class UserFacade {
