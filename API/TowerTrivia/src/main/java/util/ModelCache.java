@@ -21,6 +21,8 @@ public class ModelCache {
         modelMap.put("Session",new SessionModel());
         modelMap.put("User",new UserModel());
         modelMap.put("Response", new ResponseModel<>());
+        modelMap.put("Score",new ScoreModel());
+        modelMap.put("Ranking",new RankingModel());
         System.out.println("Listo");
     }
 }

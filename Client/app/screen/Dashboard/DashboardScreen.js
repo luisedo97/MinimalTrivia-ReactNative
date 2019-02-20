@@ -9,8 +9,10 @@ class DashboardScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cup: '',
-      username: '',
+      player:{
+        data:'',//La data lo uso con el store
+        score:''//El score lo relleno con el sistema.
+      },
       index: 0 //Dashboard home
     };
 
