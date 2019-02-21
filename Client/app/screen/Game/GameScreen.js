@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {Text, Button, Container, Grid, Col, Row} from 'native-base';
+import {Text, Button, Container, Grid, Col, Row, Spinner} from 'native-base';
 import {AsyncStorage} from 'react-native';
 import Utility from '../../util/Utility';
-import ButtonAnswer from '../../components/ButtonAnswer';
 
 class GameScreen extends Component {
   constructor(props) {
@@ -88,9 +87,9 @@ class GameScreen extends Component {
     switch(this.state.status){
       case 'waitingNewQuiz':
         return(
-          <Text>
-            Loading
-          </Text>
+          <Container>
+            <Spinner color='blue' />
+          </Container>
         );
       case 'playing':
         //Render game

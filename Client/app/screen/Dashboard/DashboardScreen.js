@@ -35,10 +35,10 @@ class DashboardScreen extends Component {
     }
 
     return (
+      
         <Container>
           <Content>
-            <ViewContent 
-              navigation={this.props.navigation}/>
+            <ViewContent navigation={this.props.navigation}/>
           </Content>
           <Footer>
             <FooterTab>
@@ -60,7 +60,9 @@ class DashboardScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-
+  viewContent:{
+    
+  }
 });
 
 export default DashboardScreen;

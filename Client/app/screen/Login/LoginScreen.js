@@ -69,7 +69,7 @@ class LoginScreen extends Component {
 
     storeData = async (data) => {
         try {
-            await AsyncStorage.setItem('dataUser', JSON.stringify(data), (err) => console.log(err));
+            await AsyncStorage.setItem('dataUser', JSON.stringify(data));
         } catch (error) {
             alert('Error while saving data :( Try it again...');
             alert(error)

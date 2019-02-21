@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Content, Button, Text, Body, Input , Form, Item} from 'native-base';
+import { Container, Content, Button, Text, Body, Input , Form, Item, Header} from 'native-base';
 import { registerTaskAsync } from 'expo-background-fetch';
+import Utility from '../../util/Utility';
 
 class RegisterScreen extends Component {
     constructor(props) {
@@ -12,6 +13,8 @@ class RegisterScreen extends Component {
             email: '',
         };
     }
+
+    util = new Utility();
 
     static navigationOptions = {
         headerStyle: {
@@ -42,7 +45,7 @@ class RegisterScreen extends Component {
                 })
             }
 
-            await fetch('http://192.168.1.110:8084/TowerTrivia/register', config)
+            await fetch(this.util.getUrl('register'), config)
                 .then((response)=>{
                     return response.json();
                 })
