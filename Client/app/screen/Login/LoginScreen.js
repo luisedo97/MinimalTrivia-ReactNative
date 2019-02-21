@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Container, Content, Button, Text, Body, Input , Form, Item} from 'native-base';
 import {AsyncStorage,StyleSheet} from 'react-native';
+import Utility from '../../util/Utility';
+
+
+//const util = new Utility();
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -23,13 +27,17 @@ class LoginScreen extends Component {
           }
     };
 
+    util = new Utility();
+
     loginUser = async () => {
         try {
             let config = {
-                method: 'POST',
+                crossDomain: true,
+                method: "POST",
+                credential:'include',
                 headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
+                    //"Cookie": await AsyncStorage('Cookie')
                 },
                 body: JSON.stringify({
                     username: this.state.username,
@@ -37,11 +45,15 @@ class LoginScreen extends Component {
                 })
             }
 
-            await fetch('http://192.168.1.116:8084/TowerTrivia/session', config)
+
+            await fetch(this.util.getUrl('session'), config)
                 .then((response)=>{
+                    console.log(response.headers.map["set-cookie"]);    
+                    AsyncStorage.setItem("Cookie", response.headers.map["set-cookie"]);
                     return response.json();
                 })
                 .then((response)=>{
+                    console.log(response);
                     if(response.status === 200 ){
                         this.storeData(response.data);
                         this.props.navigation.navigate("Dashboard");
@@ -64,7 +76,9 @@ class LoginScreen extends Component {
         }
     }
 
+
     render() {
+        
         return (
             <Container>
                 <Content padder>

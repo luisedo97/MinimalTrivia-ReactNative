@@ -6,8 +6,10 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import RegisterScreen from './app/screen/Register/RegisterScreen';
 import DashboardScreen from './app/screen/Dashboard/DashboardScreen';
 import GameScreen from './app/screen/Game/GameScreen'
+import AsyncStorage from 'react-native';
 
 export default class App extends React.Component {
+  
   state = {
     isReady: false,
   };
@@ -33,6 +35,7 @@ export default class App extends React.Component {
       'Roboto': require('native-base/Fonts/Roboto.ttf'),
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
     });
+    //await AsyncStorage.clear();
   }
 
 }
@@ -61,7 +64,7 @@ const RootStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: "Dashboard"
+    initialRouteName: "Home"
   }
 );
 

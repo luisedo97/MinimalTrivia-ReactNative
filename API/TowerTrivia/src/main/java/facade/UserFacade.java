@@ -95,7 +95,7 @@ public HttpSession checkUser(HttpServletRequest request) throws JsonProcessingEx
         try {
             SessionModel userdata = getUserData(request);
             if(userdata!=null){
-                System.out.println(userdata.getUsername());
+                //System.out.println(userdata.getUsername());
                 setSessionData(userdata);
                 session = request.getSession();
                 setSessionValues(session, getSessionData());
@@ -111,6 +111,7 @@ public String sessionCreate(HttpServletRequest request) throws JsonProcessingExc
     HttpSession session = checkUser(request);
     SessionModel sm = (SessionModel) session.getAttribute("session");
     System.out.println(sm.getUsername());
+    System.out.println(sm);
         if(sm.getId() != 0){
             if(session.isNew()){
                 data.setStatus(200);

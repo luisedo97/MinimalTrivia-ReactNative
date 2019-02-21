@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'native-base';
 
 class RankingComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      ranking:this.props.data
     };
   }
 
   render() {
     return (
-      <View>
-        <Text> Ranking </Text>
-      </View>
+      <Text>
+        {JSON.stringify(this.state.ranking)}
+      </Text>
     );
   }
 }

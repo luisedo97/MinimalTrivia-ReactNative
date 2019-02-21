@@ -42,7 +42,7 @@ class RegisterScreen extends Component {
                 })
             }
 
-            await fetch('http://192.168.1.116:8084/TowerTrivia/register', config)
+            await fetch('http://192.168.1.110:8084/TowerTrivia/register', config)
                 .then((response)=>{
                     return response.json();
                 })

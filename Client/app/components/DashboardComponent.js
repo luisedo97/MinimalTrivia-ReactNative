@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import {Text, Button, Container, Footer} from 'native-base';
 
 class DashboardComponent extends Component {
   constructor(props) {
@@ -8,13 +8,19 @@ class DashboardComponent extends Component {
     };
   }
 
+  startGame()
+  {
+    this.props.navigation.navigate("Game");
+  }
+
   render() {
     return (
-      <View>
-        <Text>Dashboard</Text>
-      </View>
+      <Button onPress={()=>this.startGame()}>
+        <Text>Play game</Text>
+      </Button>
     );
   }
+
 }
 
 export default DashboardComponent;
