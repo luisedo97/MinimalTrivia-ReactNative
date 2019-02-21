@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Text, Button, Container} from 'native-base';
+import {Text, Button, Container, Grid, Col, Row} from 'native-base';
 import {AsyncStorage} from 'react-native';
 import Utility from '../../util/Utility';
+import ButtonAnswer from '../../components/ButtonAnswer';
 
 class GameScreen extends Component {
   constructor(props) {
@@ -11,8 +12,10 @@ class GameScreen extends Component {
 
   state = {
     quiz:{},
-    player:this.props.player,
-    status: 'waitingNewQuiz'
+    playerScore: '',
+    status: 'waitingNewQuiz',
+    correct:'',
+    counter:10,
   };
 
   util = new Utility();
@@ -25,8 +28,10 @@ class GameScreen extends Component {
       })
       .then((response)=>{
         if(response.response_code == 0){
-          this.setState({quiz: response.results});
+          this.setState({quiz: response.results[0]});
           this.setState({status:'playing'});
+          //console.log(this.state.quiz);
+
         }else{
             alert(JSON.stringify(response));
         }
@@ -46,7 +51,7 @@ class GameScreen extends Component {
           correct: correct
       })
     } 
-  
+    
     await fetch(this.util.getUrl('Score'),config)
       .then((response)=>{
         return response.json();
@@ -54,13 +59,29 @@ class GameScreen extends Component {
       .then((response)=>{
         if(response.status == 200){
           this.setState({status:'waitingAction'});
+          this.setState({correct:correct});
+          AsyncStorage.setItem('score',response.data.score+'');
+          this.setState({playerScore:response.data.score});
         }
-      })
+    })
   
   }
 
   async componentWillMount () {
+    let score = await AsyncStorage.getItem('score');
+    this.setState({playerScore: score});
     await this.newQuiz();
+    
+  }
+
+  refillArrayAnswer(){
+    let response = [{text:this.state.quiz.correct_answer,isCorrect:true}];
+    this.state.quiz['incorrect_answers'].forEach(element => {
+      response.push({text:element,isCorrect:false});
+    });
+    response.sort();
+    console.log(response);
+    return response;
   }
 
   render() {
@@ -75,32 +96,86 @@ class GameScreen extends Component {
         //Render game
         return(
           <Container>
-            <Text>
-              {JSON.stringify(this.state.quiz)}
-            </Text>
-            <Button onPress={()=>this.answerResponse(true)}>
-              <Text>
-                Correct
-              </Text>
-            </Button>
-            <Button danger onPress={()=>this.answerResponse(false)}>
-              <Text>
-                Incorrect
-              </Text>
-            </Button>
+            <Grid>
+              <Row>
+              </Row>
+              <Row>
+                <Text>
+                  {JSON.stringify(this.state.quiz.question)}
+                </Text>
+              </Row>
+                <Row>
+                  {
+                    ((this.state.quiz.length === 0) ? 
+                    alert('empty array') : 
+                    this.refillArrayAnswer().map((answer) => {
+                        return (
+                          <Col>
+                            <Button block onPress={()=>this.answerResponse(answer.isCorrect)}>
+                              <Text>
+                                {answer.text}
+                              </Text>
+                            </Button>
+                          </Col>                              
+                        )
+                    }))
+                  }
+                </Row>
+              <Row/>
+            </Grid>
           </Container>
         );
+
       case 'waitingAction':
+
+        let MessageContent = ((this.state.correct) ? 
+        ()=>{
+          return(
+              <Text>
+                Correct!
+              </Text>
+            )}: 
+        ()=>{
+          return(
+              <Text>
+                Incorrect!
+              </Text>
+            )
+        })
+
         return (
           <Container>
-            <Text>
-              Waiting Action
-            </Text>
-            <Button onPress={this.newQuiz}>
-              <Text>
-                New Quiz
-              </Text>
-            </Button>
+            <Grid>
+              <Row>
+                <Text>
+                  {this.state.playerScore}$
+                </Text>
+              </Row>
+              <Row>
+                <MessageContent/>
+              </Row>
+              <Row>
+              <Col>
+                <Button onPress={this.newQuiz}>
+                  <Text>
+                    Waiting Action
+                  </Text>
+                </Button>
+              </Col>
+              <Col>
+                <Button onPress={()=>this.props.navigation.navigate("Dashboard")}>
+                  <Text>
+                    Go back home
+                  </Text>
+                </Button>
+              </Col>                
+              </Row>
+              <Row>
+
+              </Row>
+              
+            </Grid>
+            
           </Container>
         );
     }
