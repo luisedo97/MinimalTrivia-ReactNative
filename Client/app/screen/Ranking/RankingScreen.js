@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Text, Container, List, ListItem, Right, Left,Body, Content,Separator, Header,Spinner, Grid, Col} from 'native-base';
+import { Text, Container, List, ListItem, Right, Left,Body, Content,Separator, Header,Spinner, Grid, Row} from 'native-base';
 import {AsyncStorage,StyleSheet} from 'react-native';
-import Utility from '../util/Utility'; 
+import Utility from '../../util/Utility'; 
 
-class RankingComponent extends Component {
+class RankingScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +13,21 @@ class RankingComponent extends Component {
       isReady:false
     };
   }
+
+  static navigationOptions = {
+    headerStyle: {
+        shadowOpacity: 0,
+        shadowOffset: {
+          height: 0
+        },
+        shadowRadius: 0,
+        borderBottomWidth: 0,
+        elevation: 0,
+        backgroundColor:'black',
+      },
+    title:'Leaderboard'
+  };
+
 
   util = new Utility();
 
@@ -53,8 +68,14 @@ class RankingComponent extends Component {
   render() {
     if(!this.state.isReady){
       return(
-        <Container>
-          <Spinner color='blue' />
+        <Container style={{backgroundColor:'black'}}>
+            <Grid>
+              <Row size={45}/>
+              <Row size={10}>
+                <Spinner color='white' style={{flex: 1,  justifyContent: 'center', alignItems: 'center'}}/>
+              </Row>
+              <Row size={45}/>
+            </Grid>
         </Container>
       );
     }
@@ -117,8 +138,42 @@ class RankingComponent extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const colorList = {
+  primary: 'white',
+  secondary: 'black'
+}
 
+const styles = StyleSheet.create({
+  container:{
+    backgroundColor:colorList.secondary,
+    flex: 1,  justifyContent: 'center', alignItems: 'center'
+  },
+  button:{
+    backgroundColor:colorList.primary,
+    color:colorList.secondary,
+    flex: 1,  justifyContent: 'center', alignItems: 'center'
+  },
+  title:{
+    color: colorList.primary,
+    fontSize:40,
+    textAlign:'center',
+    fontFamily: 'Simplifica',
+  },
+  buttonText:{
+      color:colorList.secondary,
+      fontFamily: 'Simplifica',
+      fontSize:30
+  },
+  spinnerBackground:{
+    backgroundColor:colorList.secondary,
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+  },
+  spinner:{
+    alignItems: 'center',
+    justifyContent:'center',
+  }
 });
 
-export default RankingComponent;
+export default RankingScreen;

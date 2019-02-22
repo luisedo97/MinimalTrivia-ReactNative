@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Content, Button, Text, Body, Input , Form, Item} from 'native-base';
+import { Container, Content, Button, Text, Body, Input , Form, Item, Grid, Row} from 'native-base';
 import {AsyncStorage,StyleSheet} from 'react-native';
 import Utility from '../../util/Utility';
 
@@ -23,8 +23,9 @@ class LoginScreen extends Component {
             },
             shadowRadius: 0,
             borderBottomWidth: 0,
-            elevation: 0
-          }
+            elevation: 0,
+            backgroundColor: 'black',
+        }
     };
 
     util = new Utility();
@@ -40,8 +41,8 @@ class LoginScreen extends Component {
                     //"Cookie": await AsyncStorage('Cookie')
                 },
                 body: JSON.stringify({
-                    username: this.state.username,
-                    password: this.state.password,
+                    username: this.state.username.toLowerCase(),
+                    password: this.state.password.toLowerCase(),
                 })
             }
 
@@ -56,7 +57,9 @@ class LoginScreen extends Component {
                     console.log(response);
                     if(response.status === 200 ){
                         this.storeData(response.data);
-                        this.props.navigation.navigate("Dashboard");
+                        this.props.navigation.navigate("Dashboard",{
+                            nameUser:response.data.name
+                        });
                     }else{
                         alert(JSON.stringify(response));
                     }
@@ -80,34 +83,78 @@ class LoginScreen extends Component {
     render() {
         
         return (
-            <Container>
-                <Content padder>
-                    <Text>
-                        Login
-                    </Text>
-                
-                    <Form>
-                        <Item>
-                        <Input placeholder="Username"
-                            onChangeText={username => this.setState({ username })}
-                            value={this.state.username} />
-                        </Item>
-                        <Item password>
-                        <Input placeholder="Password" 
-                            onChangeText={password => this.setState({ password })}
-                            value={this.state.password}
-                            secureTextEntry={true}/>
-                        </Item>
-                    </Form>
-                
-                    <Button onPress={()=>this.loginUser()}>
-                        <Text>Login</Text>
-                    </Button>
-                    
-                </Content>
+            <Container style={{backgroundColor:'black'}}>
+                <Grid>
+                    <Row size={5}/>
+                    <Row size={20}>
+                        <Text style={{
+                            flex: 1,  
+                            justifyContent: 'center', 
+                            alignItems: 'center',
+                            color: colorList.primary,
+                            fontSize:75,
+                            textAlign:'center',
+                            fontFamily: 'Simplifica'}}>
+                            Login
+                        </Text>
+                    </Row>
+                    <Row size={30}>
+                        <Form style={{color:'white',fontFamily:'Simplifica',flex: 1,  justifyContent: 'center', alignItems: 'center'}}>
+                            <Item>
+                            <Input placeholder="Username"
+                                onChangeText={username => this.setState({ username })}
+                                value={this.state.username} 
+                                style={{color:'white',fontFamily:'Simplifica'}}/>
+                            </Item>
+                            <Item>
+                            <Input placeholder="Password" 
+                                onChangeText={password => this.setState({ password })}
+                                value={this.state.password}
+                                secureTextEntry={true}
+                                style={{color:'white',fontFamily:'Simplifica'}}/>
+                            </Item>
+                        </Form>
+                    </Row>
+                    <Row size={25}>
+                        <Button onPress={()=>this.loginUser()} style={styles.button}>
+                            <Text style={styles.buttonText}>
+                                Login
+                            </Text>
+                        </Button>    
+                    </Row>
+                    <Row size={20}/>
+                </Grid>
             </Container>
         );
     }
 }
+
+const colorList = {
+    primary: 'white',
+    secondary: 'black'
+  }
+  
+  const styles = StyleSheet.create({
+    container:{
+      backgroundColor:colorList.secondary,
+      flex: 1,  justifyContent: 'center', alignItems: 'center'
+    },
+    button:{
+      backgroundColor:colorList.primary,
+      color:colorList.secondary,
+      flex: 1,  justifyContent: 'center', alignItems: 'center'
+    },
+    title:{
+      color: colorList.primary,
+      fontSize:40,
+      textAlign:'center',
+      fontFamily: 'Simplifica',
+    },
+    buttonText:{
+        color:colorList.secondary,
+        fontFamily: 'Simplifica',
+        fontSize:30
+    },
+  });
 
 export default LoginScreen;

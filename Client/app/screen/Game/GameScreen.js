@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Text, Button, Container, Grid, Col, Row, Spinner} from 'native-base';
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage,StyleSheet} from 'react-native';
 import Utility from '../../util/Utility';
 
 class GameScreen extends Component {
@@ -87,40 +87,50 @@ class GameScreen extends Component {
     switch(this.state.status){
       case 'waitingNewQuiz':
         return(
-          <Container>
-            <Spinner color='blue' />
+          <Container style={{backgroundColor:'black'}}>
+            <Grid>
+              <Row size={45}/>
+              <Row size={10}>
+                <Spinner color='white' style={{flex: 1,  justifyContent: 'center', alignItems: 'center'}}/>
+              </Row>
+              <Row size={45}/>
+            </Grid>
           </Container>
         );
       case 'playing':
         //Render game
+        i = 0;
         return(
-          <Container>
+          <Container style={styles.container}>
             <Grid>
-              <Row>
+              <Row size={15}>
               </Row>
-              <Row>
-                <Text>
+              <Row size={35}>
+                <Text style={styles.title}>
                   {JSON.stringify(this.state.quiz.question)}
                 </Text>
               </Row>
-                <Row>
                   {
                     ((this.state.quiz.length === 0) ? 
                     alert('empty array') : 
                     this.refillArrayAnswer().map((answer) => {
-                        return (
-                          <Col>
-                            <Button block onPress={()=>this.answerResponse(answer.isCorrect)}>
-                              <Text>
-                                {answer.text}
-                              </Text>
-                            </Button>
-                          </Col>                              
-                        )
-                    }))
+                          return (
+                            <Row size={10}>
+                              <Button
+                              style={styles.button} 
+                              large 
+                              block 
+                              onPress={()=>this.answerResponse(answer.isCorrect)}>
+                                <Text style={styles.buttonText}>
+                                  {answer.text}
+                                </Text>
+                              </Button>
+                            </Row>                              
+                          )
+                    }
+                    ))
                   }
-                </Row>
-              <Row/>
+              <Row size={10}/>
             </Grid>
           </Container>
         );
@@ -130,48 +140,47 @@ class GameScreen extends Component {
         let MessageContent = ((this.state.correct) ? 
         ()=>{
           return(
-              <Text>
-                Correct!
+              <Text style={styles.title}>
+                Correct! The answer correct is: {this.state.quiz.correct_answer}
               </Text>
             )}: 
         ()=>{
           return(
-              <Text>
-                Incorrect!
+              <Text style={styles.title}>
+                Incorrect! The answer correct is: {this.state.quiz.correct_answer}
               </Text>
             )
         })
 
         return (
-          <Container>
+          <Container style={styles.container}>
             <Grid>
-              <Row>
-                <Text>
-                  {this.state.playerScore}$
-                </Text>
+              <Row size={10}>
               </Row>
-              <Row>
+              <Row size={30} style={styles.title}>
                 <MessageContent/>
               </Row>
-              <Row>
-              <Col>
-                <Button onPress={this.newQuiz}>
-                  <Text>
+              <Row size={10}>
+                <Text style={styles.title}>
+                  Your score:{this.state.playerScore}
+                </Text>
+              </Row>
+              <Row size={15}>
+                <Button style={styles.button} onPress={this.newQuiz}>
+                  <Text style={styles.buttonText}>
                     Waiting Action
                   </Text>
                 </Button>
-              </Col>
-              <Col>
-                <Button onPress={()=>this.props.navigation.navigate("Dashboard")}>
-                  <Text>
+              </Row>
+              <Row size={15}>
+                <Button style={styles.button} 
+                  onPress={()=>this.props.navigation.navigate("Dashboard")}>
+                  <Text style={styles.buttonText}>
                     Go back home
                   </Text>
                 </Button>
-              </Col>                
               </Row>
-              <Row>
-
-              </Row>
+              <Row size={20}/>
               
             </Grid>
             
@@ -180,5 +189,44 @@ class GameScreen extends Component {
     }
   }
 }
+
+
+const colorList = {
+  primary: 'white',
+  secondary: 'black'
+}
+
+const styles = StyleSheet.create({
+  container:{
+    backgroundColor:colorList.secondary,
+    flex: 1,  justifyContent: 'center', alignItems: 'center'
+  },
+  button:{
+    backgroundColor:colorList.primary,
+    color:colorList.secondary,
+    flex: 1,  justifyContent: 'center', alignItems: 'center'
+  },
+  title:{
+    color: colorList.primary,
+    fontSize:40,
+    textAlign:'center',
+    fontFamily: 'Simplifica',
+  },
+  buttonText:{
+      color:colorList.secondary,
+      fontFamily: 'Simplifica',
+      fontSize:30
+  },
+  spinnerBackground:{
+    backgroundColor:colorList.secondary,
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+  },
+  spinner:{
+    alignItems: 'center',
+    justifyContent:'center',
+  }
+});
 
 export default GameScreen;

@@ -5,7 +5,9 @@ import LoginScreen from './app/screen/Login/LoginScreen';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import RegisterScreen from './app/screen/Register/RegisterScreen';
 import DashboardScreen from './app/screen/Dashboard/DashboardScreen';
-import GameScreen from './app/screen/Game/GameScreen'
+import GameScreen from './app/screen/Game/GameScreen';
+import RankingScreen from './app/screen/Ranking/RankingScreen';
+
 import AsyncStorage from 'react-native';
 
 export default class App extends React.Component {
@@ -34,6 +36,7 @@ export default class App extends React.Component {
     await Expo.Font.loadAsync({
       'Roboto': require('native-base/Fonts/Roboto.ttf'),
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+      'Simplifica': require('./assets/SIMPLIFICA.ttf')
     });
     //await AsyncStorage.clear();
   }
@@ -59,12 +62,21 @@ const RootStack = createStackNavigator(
     Game:{
       screen: GameScreen,
       navigationOptions: {
-        header: null
+        header: null,
       }
+    },
+    Ranking:{
+      screen: RankingScreen,
     }
   },
   {
-    initialRouteName: "Home"
+    initialRouteName: "Home",
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: 'black',
+      },
+      headerTintColor: 'white',
+    },
   }
 );
 
