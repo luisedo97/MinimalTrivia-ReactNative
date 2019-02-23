@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.luisedo97</groupId>
-    <artifactId>TowerTrivia</artifactId>
+    <artifactId>MinimalTrivia</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>TowerTrivia</name>
+    <name>Minimal Trivia</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
