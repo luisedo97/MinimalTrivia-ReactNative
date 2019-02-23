@@ -76,6 +76,10 @@ const RootStack = createStackNavigator(
         backgroundColor: 'black',
       },
       headerTintColor: 'white',
+      headerTitleStyle: {
+        textAlign:'center',
+        fontFamily: 'Simplifica',
+      }
     },
   }
 );

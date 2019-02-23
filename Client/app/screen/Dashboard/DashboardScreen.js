@@ -29,14 +29,14 @@ class DashboardScreen extends Component {
               </Row>
               <Row size={10}/>
               <Row size={15}>
-                <Button block large padder style={styles.button} onPress={()=>this.props.navigation.navigate("Game")}>
+                <Button full large padder style={styles.button} onPress={()=>this.props.navigation.navigate("Game")}>
                   <Text style={styles.buttonText}>
                     Play
                   </Text>
                 </Button>
               </Row>  
               <Row size={15}>
-                <Button block large padder style={styles.button} 
+                <Button full large padder style={styles.button} 
                   onPress={()=>this.props.navigation.navigate("Ranking")}>
                   <Text style={styles.buttonText}>
                     Ranking

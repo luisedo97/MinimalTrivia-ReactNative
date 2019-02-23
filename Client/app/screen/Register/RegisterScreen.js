@@ -55,6 +55,8 @@ class RegisterScreen extends Component {
                 .then((response)=>{
                     if(response.status == 200){
                         this.props.navigation.navigate('Login');
+                    }else{
+                        alert('Wrong user or password');
                     }
                 })
         } catch (err) {
@@ -80,8 +82,8 @@ class RegisterScreen extends Component {
                             Register
                         </Text>
                     </Row>
-                    <Row size={50}>
-                        <Form style={{color:'white',fontFamily:'Simplifica',flex: 1,  justifyContent: 'center', alignItems: 'center'}}>
+                    <Row size={45}>
+                        <Form style={{color:'white',fontFamily:'Simplifica',flex: 0.95,  justifyContent: 'center', alignItems: 'center'}}>
                             <Item>
                             <Input placeholder="Name" 
                                 onChangeText={name => this.setState({ name })}
@@ -110,7 +112,7 @@ class RegisterScreen extends Component {
                             </Item>
                         </Form>
                     </Row>
-                    <Row size={20}>
+                    <Row size={25}>
                         <Button onPress={()=>{
                             this.registerUser()
                             }} style={styles.button}>

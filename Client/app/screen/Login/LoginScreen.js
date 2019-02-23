@@ -61,7 +61,7 @@ class LoginScreen extends Component {
                             nameUser:response.data.name
                         });
                     }else{
-                        alert(JSON.stringify(response));
+                        alert('Wrong user or password');
                     }
                 })
         
@@ -85,7 +85,6 @@ class LoginScreen extends Component {
         return (
             <Container style={{backgroundColor:'black'}}>
                 <Grid>
-                    <Row size={5}/>
                     <Row size={20}>
                         <Text style={{
                             flex: 1,  
@@ -98,8 +97,8 @@ class LoginScreen extends Component {
                             Login
                         </Text>
                     </Row>
-                    <Row size={30}>
-                        <Form style={{color:'white',fontFamily:'Simplifica',flex: 1,  justifyContent: 'center', alignItems: 'center'}}>
+                    <Row size={45}>
+                        <Form style={{color:'white',fontFamily:'Simplifica',flex: 0.95,  justifyContent: 'center', alignItems: 'center'}}>
                             <Item>
                             <Input placeholder="Username"
                                 onChangeText={username => this.setState({ username })}
@@ -122,7 +121,7 @@ class LoginScreen extends Component {
                             </Text>
                         </Button>    
                     </Row>
-                    <Row size={20}/>
+                    <Row size={10}/>
                 </Grid>
             </Container>
         );

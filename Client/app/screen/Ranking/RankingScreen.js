@@ -25,7 +25,7 @@ class RankingScreen extends Component {
         elevation: 0,
         backgroundColor:'black',
       },
-    title:'Leaderboard'
+    title:'Leaderboard',
   };
 
 
@@ -84,7 +84,7 @@ class RankingScreen extends Component {
     return (
 
         <Content style={styles}>
-          <Separator>
+          <Separator style={styles.separator}>
           </Separator>
           <ListItem>
             <Left>
@@ -103,7 +103,7 @@ class RankingScreen extends Component {
               </Text>
             </Right>
             </ListItem>
-            <Separator/>
+            <Separator style={styles.separator}/>
           {
             ((this.state.ranking.length === 0) ? 
             console.log('empty array') : 
@@ -131,7 +131,7 @@ class RankingScreen extends Component {
                 )
             }))
           }
-          <Separator>
+          <Separator style={styles.separator}>
           </Separator>
         </Content>
     );
@@ -148,10 +148,11 @@ const styles = StyleSheet.create({
     backgroundColor:colorList.secondary,
     flex: 1,  justifyContent: 'center', alignItems: 'center'
   },
-  button:{
+  element:{
     backgroundColor:colorList.primary,
     color:colorList.secondary,
-    flex: 1,  justifyContent: 'center', alignItems: 'center'
+    textAlign:'center',
+    fontFamily: 'Simplifica',
   },
   title:{
     color: colorList.primary,
@@ -159,10 +160,11 @@ const styles = StyleSheet.create({
     textAlign:'center',
     fontFamily: 'Simplifica',
   },
-  buttonText:{
-      color:colorList.secondary,
-      fontFamily: 'Simplifica',
-      fontSize:30
+  separator:{
+    backgroundColor: colorList.secondary,
+    color:colorList.primary,
+    fontFamily: 'Simplifica',
+    fontSize:30
   },
   spinnerBackground:{
     backgroundColor:colorList.secondary,

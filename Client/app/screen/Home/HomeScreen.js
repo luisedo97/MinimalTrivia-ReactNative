@@ -56,7 +56,7 @@ const colorList = {
     button:{
       backgroundColor:colorList.primary,
       color:colorList.secondary,
-      flex:1,
+      flex:1.2,
       alignItems: 'center',
       justifyContent: 'center'
     },
