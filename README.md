@@ -7,6 +7,7 @@ Game made in React Native and Java Servlet,
 * [React Native](https://facebook.github.io/react-native/) - Front-end
 * [Native Base](https://nativebase.io/) - UI components
 * [JavaEE](https://www.oracle.com/technetwork/java/index-jsp-135475.html) - Back-end (With Servlet and Jackson)
+* [PostgresSQL](https://www.postgresql.org/) - Database 
 
 ## Authors
 
